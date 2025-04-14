@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Document technique sur la fabrication DIY d'une télévision cathodique, décrivant deux prototypes expérimentaux de tube, des bobines de déviation, un circuit électronique, et un CRT Dumont comme référence.">
+      <meta name="keywords" content="TV cathodique, CRT, DIY, cathode froide, filament, plasma, phosphore, vide, bobines, électronique, physique quantique">
+      <title>Télévision Cathodique : Mon Projet DIY</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <style>
+   details summary { 
+      cursor: pointer; 
+      font-weight: bold; 
+      color: #2F4F4F; /* Vert olive foncé */
+      text-decoration: underline; 
+   }
+   details { 
+      margin-bottom: 1rem; 
+      border: 2px solid #4682B4; /* Bleu acier rétro */
+      background-color: #F5F5DC; /* Beige clair */
+   }
+   .formula {
+      font-family: "Times New Roman", Times, serif;
+      font-style: italic;
+      color: #483D8B; /* Bleu ardoise */
+   }
+   .equation-explanation {
+      font-size: 0.9em;
+      color: #4a5568;
+      margin-top: 0.5rem;
+   }
+   /* Style général rétro moins flashy */
+   body {
+      font-family: Arial, Verdana, sans-serif; /* Police classique des années 2000 */
+      background-color: #F0F0E0; /* Beige très clair */
+      background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Fond texturé */
+      color: #333333; /* Texte gris foncé */
+   }
+   h1 {
+      color: #2F4F4F; /* Vert olive foncé */
+      text-shadow: 1px 1px 1px #888; /* Ombre légère pour h1 uniquement */
+      text-decoration: underline;
+   }
+   h2, h3, h4 {
+      color: #4682B4; /* Bleu acier */
+      text-decoration: underline;
+      /* Pas de text-shadow pour h2, h3, h4 pour améliorer la lisibilité */
+   }
+   section {
+      border: 3px solid #6B8E23; /* Vert olive */
+      box-shadow: 3px 3px 3px #999; /* Ombre portée subtile */
+      background-color: #FFFFFF; /* Fond blanc pour les sections */
+   }
+   img, video {
+      border: 2px solid #4682B4; /* Bordure bleu acier */
+      padding: 5px;
+      background-color: #F5F5DC; /* Beige clair derrière les médias */
+   }
+</style>
+   </head>
+   <body>
+      <div class="container mx-auto p-6">
+         <!-- Header -->
+         <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Télévision Cathodique : Mon Projet DIY</h1>
+            <p class="text-lg text-gray-600 mt-2">Étude expérimentale de la construction d'une TV cathodique complète</p>
+         </header>
+         <!-- Introduction -->
+         <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Introduction</h2>
+            <p class="text-gray-700 mb-4">À venir</p>
+         </section>
+         <!-- Tube Cathodique -->
+         <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tube Cathodique</h2>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Introduction et Objectifs</h3>
+            <p class="text-gray-700 mb-4">
+               L’objectif de cette partie du projet était de concevoir un tube cathodique (CRT) DIY fonctionnel en utilisant des moyens accessibles. J’ai choisi une pompe Vevor capable d’atteindre 25 microns avec un scellage optimal et une huile de haute qualité. Cependant, avec l’huile de base fournie et un scellage moyen de ma chambre à vide (sans époxy spécialisé), je visais une pression entre 500 et 1000 microns, ce qui me semblait suffisant pour un faisceau d’électrons stable. J’ai écarté la pompe Pfeiffer, limitée à 4000 microns, inadaptée pour un CRT.
+            </p>
+            <div class="flex flex-col items-center space-y-4 mb-4">
+               <img src="./assets/photo_pompe_vide.jpg" alt="Photo des pompes à vide" class="w-full max-w-3xl">
+            </div>
+            <!-- Prototype 1: Cathode Froide -->
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Premier Prototype : Cathode Froide et Décharge Plasma</h3>
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">Configuration Expérimentale</h4>
+            <p class="text-gray-700 mb-4">
+               Ce prototype utilise un <strong>erlenmeyer filtrant</strong> comme enceinte à vide, avec des bords arrondis et un verre épais, résistant aux contraintes du vide. Le fond est recouvert d’une couche de phosphore à base de sulfure de zinc (ZnS), extraite de tubes néon récupérés à la déchetterie. Le canon à électrons est monté dans un bouchon en caoutchouc scellé avec de la résine époxy à l’erlenmeyer. La configuration interne comprend :
+            </p>
+            <ul class="list-disc list-inside text-gray-700 mb-4">
+               <li><strong>Cathode froide</strong> : Pointe en aluminium (tige de 1 mm taillée) à -8000 volts, pour émettre des électrons par effet de champ sans chauffage.</li>
+               <li><strong>Anode primaire</strong> : Cylindre en aluminium à 0 volt, à ~4 cm de la pointe.</li>
+               <li><strong>Anode accélératrice</strong> : Second cylindre en aluminium à +10 000 volts, à ~7 cm de la première anode (~11 cm de la pointe).</li>
+               <li><strong>Écran phosphorescent</strong> : À ~20 cm de l’anode accélératrice (~31 cm de la pointe).</li>
+            </ul>
+            <p class="text-gray-700 mb-4">
+               Le canon est constitué de tubes à essai en verre, découpés à la Dremel, scellés par résine époxy, et intégrant des anodes confectionnées avec des plaques d’aluminium découpées et du papier aluminium. Le vide, estimé à ~500 microns d’après la couleur violette du plasma et son extension (~26 cm depuis la pointe), était insuffisant pour un CRT conventionnel. À la mise sous tension dans l’obscurité, un plasma violet intense s’est formé, s’étendant jusqu’à ~26 cm de la pointe, s’arrêtant à ~5 cm de l’écran. Aucune luminescence phosphorescente n’a été observée, seulement la lueur diffuse du plasma.
+            </p>
+            <div class="flex flex-col items-center space-y-4 mt-4">
+               <img src="./assets/schema_proto.jpg" alt="Schéma du premier prototype" class="w-full max-w-3xl">
+               <video controls class="w-full max-w-3xl">
+                  <source src="./assets/video_proto.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la balise vidéo.
+               </video>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-700 mb-2 mt-4">Analyse des Phénomènes Observés</h4>
+            <p class="text-gray-700 mb-4">
+               Un plasma violet intense s’est formé sur ~26 cm depuis la pointe cathodique, s’arrêtant à ~5 cm de l’écran phosphorescent, indiquant un vide insuffisant. À une pression estimée de ~500 microns, les électrons émis par la cathode entrent fréquemment en collision avec les molécules de gaz résiduelles (principalement l’azote), produisant un plasma luminescent par ionisation, les empêchant d’atteindre l’écran pour exciter le phosphore.
+            </p>
+            <p class="text-gray-700 mb-4">
+               Les électrons primaires, accélérés à ~10 keV, ionisent l’azote sur leur trajet, créant la lueur violette. Le plasma s’arrête à 5 cm de l’écran, car les électrons perdent leur énergie en collisions multiples et le champ électrique s’affaiblit.
+            </p>
+            <details class="bg-gray-50 p-4 rounded-lg">
+               <summary>Analyse quantique et électrodynamique détaillée</summary>
+               <p class="text-gray-700 mt-2">
+                  Examen approfondi des phénomènes physiques :
+               </p>
+               <ol class="list-decimal list-inside text-gray-700 mb-4">
+                  <li>
+                     <strong>Estimation de la pression</strong> : Le plasma s’étend sur ~26 cm, indiquant de multiples collisions ionisantes. Le libre parcours moyen est :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / P</span> (en mètres, avec <span class="formula">P</span> en Torr)
+                     </div>
+                     Pour un plasma continu, supposons <span class="formula">λ ≈ 1 mm = 0,001 m</span> (~260 collisions sur 26 cm) :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">0,001 = 5 × 10<sup>-3</sup> / P</span> → <span class="formula">P ≈ 5 Torr ≈ 5000 microns</span>
+                     </div>
+                     Pour <span class="formula">λ ≈ 10 mm = 0,01 m</span> (~26 collisions) :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">0,01 = 5 × 10<sup>-3</sup> / P</span> → <span class="formula">P ≈ 0,5 Torr ≈ 500 microns</span>
+                     </div>
+                     La couleur violette et l’extension du plasma sur 26 cm (avec ~26 collisions) suggèrent une pression de ~500 microns, cohérente avec un plasma d’azote à cette pression, où les collisions sont fréquentes mais le plasma reste stable et visible. <strong>Cette estimation est cependant approximative, basée sur des observations qualitatives (couleur, extension). Une jauge à vide serait nécessaire pour confirmer la pression réelle.</strong>
+                     <p class="equation-explanation">
+                        - <span class="formula">λ</span> : Libre parcours moyen (mètres).
+                        - <span class="formula">P</span> : Pression (Torr).
+                     </p>
+                  </li>
+                  <li>
+                     <strong>Émission par effet de champ</strong> : Pour une pointe de rayon <span class="formula">r ≈ 10 μm</span> à -8000 V :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">E ≈ V / r = 8000 / (10 × 10<sup>-6</sup>) = 8 × 10<sup>8</sup> V/m</span>
+                     </div>
+                     Cela permet l’émission par effet tunnel (Fowler-Nordheim) :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">J = (A × E<sup>2</sup> / φ) × exp(-B × φ<sup>3/2</sup> / E)</span>
+                     </div>
+                     <p class="equation-explanation">
+                        - <span class="formula">J</span> : Densité de courant (A/m²).
+                        - <span class="formula">E</span> : Champ électrique (V/m).
+                        - <span class="formula">φ</span> : Travail de sortie (~4,3 eV, aluminium).
+                        - <span class="formula">A, B</span> : Constantes physiques.
+                     </p>
+                     <strong>Remarque</strong> : Le rayon de la pointe (10 μm) est une approximation grossière pour illustrer le calcul. Une mesure précise serait nécessaire pour un résultat exact.
+                  </li>
+                  <li>
+                     <strong>Ionisation</strong> : Les électrons à 10 keV ionisent l’azote (énergie d’ionisation ~15,6 eV) :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">e<sup>-</sup> + N<sub>2</sub> → N<sub>2</sub><sup>+</sup> + 2e<sup>-</sup></span>
+                     </div>
+                     À 500 microns (0,5 Torr), <span class="formula">λ ≈ 10 mm</span>, soit ~26 collisions sur 26 cm, produisant un plasma dominé par les électrons primaires, qui ionisent l’azote tout au long de leur trajet.
+                  </li>
+                  <li>
+                     <strong>Émission spectrale</strong> : L’azote excité émet dans le violet (300-420 nm) :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">N<sub>2</sub>* → N<sub>2</sub> + hν</span>
+                     </div>
+                     <p class="equation-explanation">
+                        - <span class="formula">hν</span> : Photon émis.
+                     </p>
+                  </li>
+               </ol>
+            </details>
+            <!-- Prototype 2: Filament -->
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Deuxième Prototype : Émission Thermoïonique et Première Excitation du Phosphore</h3>
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">Configuration Expérimentale</h4>
+            <p class="text-gray-700 mb-4">
+               Ce prototype utilise un <strong>filament</strong> de tube néon comme cathode thermoïonique, dans un <strong>bocal carré</strong> en verre fermé par une plaque en plexiglas percée pour le canon. Le fond est recouvert de phosphore à base d’europium, excitable par électrons ou UV, acheté sur AliExpress. Le dispositif comprend :
+            </p>
+            <ul class="list-disc list-inside text-gray-700 mb-4">
+               <li><strong>Filament/Cathode</strong> : Alimenté entre 2 et 7 volts pour émettre des électrons.</li>
+               <li><strong>Grille de contrôle</strong> : Plaque avec un trou central, à ~3 cm du filament, entre -50 et 0 volt.</li>
+               <li><strong>Anode accélératrice</strong> : À ~7 cm de la grille (~10 cm du filament), à +10 000 volts.</li>
+               <li><strong>Écran phosphorescent</strong> : À ~12 cm de l’anode (~22 cm du filament).</li>
+            </ul>
+            <p class="text-gray-700 mb-4">
+               Le vide, probablement supérieur à 500-1000 microns car j’ai fait fonctionner la pompe Vevor moins longtemps que pour le prototype 1 par peur d’implosion, était similaire ou pire que le premier prototype. Le bocal carré augmentait les risques structurels. Une faible luminescence du phosphore a été observée, car l’écran, à ~22 cm du filament (contre ~31 cm dans le prototype 1), était plus proche, permettant à certains électrons d’atteindre le phosphore. L’expérience s’est arrêtée à cause du filament grillé par surtension.
+            </p>
+            <div class="flex flex-col items-center space-y-4 mt-4">
+               <img src="./assets/schema_proto2.jpg" alt="Schéma du deuxième prototype" class="w-full max-w-3xl">
+               <img src="./assets/photo_proto2.jpg" alt="Photo du deuxième prototype éteint" class="w-full max-w-3xl">
+               <video controls class="w-full max-w-3xl">
+                  <source src="./assets/video_phosphor.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la balise vidéo.
+               </video>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-700 mb-2 mt-4">Analyse des Phénomènes Observés</h4>
+            <p class="text-gray-700 mb-4">
+               Un plasma s’est formé, comme dans le premier prototype, en raison d’un vide insuffisant. Cependant, une faible luminescence du phosphore a été observée, car l’écran, à ~22 cm du filament (contre ~31 cm dans le prototype 1), était plus proche, permettant à certains électrons d’atteindre le phosphore malgré les collisions. L’émission thermoïonique a produit une densité électronique plus élevée, et la grille de contrôle a aidé à orienter le flux.
+            </p>
+            <details class="bg-gray-50 p-4 rounded-lg">
+               <summary>Analyse quantique et électrodynamique détaillée</summary>
+               <p class="text-gray-700 mt-2">
+                  Examen approfondi des phénomènes physiques :
+               </p>
+               <ol class="list-decimal list-inside text-gray-700 mb-4">
+                  <li>
+                     <strong>Estimation de la pression</strong> : Le vide, probablement >500 microns car la pompe a fonctionné brièvement, donne un libre parcours moyen :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / P</span> (en mètres, avec <span class="formula">P</span> en Torr)
+                     </div>
+                     Pour <span class="formula">P ≈ 0,5 Torr = 500 microns</span> :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / 0,5 = 0,01 m = 10 mm</span>
+                     </div>
+                     Sur 22 cm, cela donne ~22 collisions, expliquant le plasma mais permettant à certains électrons d’atteindre l’écran. <strong>Cette pression est une hypothèse basée sur le prototype 1 et la durée de pompage. Une jauge à vide serait nécessaire pour une mesure précise.</strong>
+                     <p class="equation-explanation">
+                        - <span class="formula">λ</span> : Libre parcours moyen (mètres).
+                        - <span class="formula">P</span> : Pression (Torr).
+                     </p>
+                  </li>
+                  <li>
+                     <strong>Émission thermoïonique</strong> : Le filament, à ~1200 K, suit la loi de Richardson-Dushman :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">J = A × T<sup>2</sup> × exp(-φ / (k × T))</span>
+                     </div>
+                     Pour <span class="formula">T = 1200 K</span>, <span class="formula">φ ≈ 4,5 eV</span> (tungstène), <span class="formula">k = 8,62 × 10<sup>-5</sup> eV/K</span>, <span class="formula">A ≈ 1,2 × 10<sup>6</sup> A/m<sup>2</sup>K<sup>2</sup></span> :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">J ≈ 1,2 × 10<sup>6</sup> × (1200)<sup>2</sup> × exp(-4,5 / (8,62 × 10<sup>-5</sup> × 1200)) ≈ 0,5 A/m<sup>2</sup></span>
+                     </div>
+                     <p class="equation-explanation">
+                        - <span class="formula">J</span> : Densité de courant (A/m²).
+                        - <span class="formula">T</span> : Température (K).
+                        - <span class="formula">φ</span> : Travail de sortie (eV).
+                        - <span class="formula">k</span> : Constante de Boltzmann (eV/K).
+                     </p>
+                     <strong>Remarque</strong> : La température (1200 K) et le travail de sortie (4,5 eV, tungstène) sont des approximations pour illustrer le calcul. Le filament réel peut avoir des propriétés différentes (par exemple, un enduit d’oxyde), et une mesure précise de la température serait nécessaire.
+                  </li>
+                  <li>
+                     <strong>Modulation par la grille</strong> : La grille module le courant :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">I ∝ (V<sub>g</sub> + μ × V<sub>a</sub>)<sup>3/2</sup></span>
+                     </div>
+                     Avec <span class="formula">V<sub>g</sub></span> entre -50 et 0 V, <span class="formula">V<sub>a</sub> = 10 kV</span>, <span class="formula">μ ≈ 0,01-0,1</span>, cela focalise partiellement les électrons.
+                     <p class="equation-explanation">
+                        - <span class="formula">I</span> : Courant (A).
+                        - <span class="formula">V<sub>g</sub>, V<sub>a</sub></span> : Tensions de grille et anode (V).
+                        - <span class="formula">μ</span> : Facteur de pénétration.
+                     </p>
+                     <strong>Remarque</strong> : Le facteur de pénétration \( \mu \) est une estimation grossière pour montrer l’effet de la grille. Une analyse expérimentale serait nécessaire pour une valeur exacte.
+                  </li>
+                  <li>
+                     <strong>Ionisation et plasma</strong> : Les électrons à 10 keV ionisent l’azote :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">e<sup>-</sup> + N<sub>2</sub> → N<sub>2</sub><sup>+</sup> + 2e<sup>-</sup></span>
+                     </div>
+                     À <span class="formula">λ ≈ 10 mm</span>, les collisions produisent un plasma, mais la distance réduite (~22 cm) permet à certains électrons d’atteindre l’écran.
+                  </li>
+                  <li><strong>Excitation du phosphore</strong> : Les électrons à ~10 keV excitent le phosphore (europium), émettant une faible luminescence.
+                  </li>
+               </ol>
+            </details>
+            <!-- Le Problème : Le Vide -->
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Le Problème : Le Vide</h3>
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">Explication Générale</h4>
+            <p class="text-gray-700 mb-4">
+               Le vide insuffisant est le principal obstacle. Dans l’erlenmeyer de 2 litres, les électrons doivent parcourir ~31 cm jusqu’à l’écran. À ~500-1000 microns, les collisions créent un plasma, empêchant un faisceau net. Bien que le deuxième prototype ait excité le phosphore grâce à une distance réduite, le vide reste problématique pour focaliser avec des bobines : les collisions après les bobines dévieraient les électrons, annulant la focalisation.
+            </p>
+            <p class="text-gray-700 mb-4">
+               Augmenter la tension HV pour compenser le vide insuffisant n’est pas une solution viable, car cela générerait des rayons X dangereux. Dans le prototype 1, à 10 kV, des rayons X ont été mesurés à 1 mSv/h à 2-3 cm du tube, diminuant rapidement à des niveaux négligeables à 15 cm (les Sieverts, exprimés en μSv, mSv, etc., mesurent l’impact biologique des rayonnements ionisants). Ces niveaux, bien que localisés, soulignent les risques d’une tension plus élevée.
+            </p>
+            <p class="text-gray-700 mb-4">
+               Après ces échecs, j’ai étudié l’équation du libre parcours moyen, comprenant qu’un vide proche de 1 micron est nécessaire pour atteindre l’écran sans plasma et focaliser pour afficher une vidéo.
+            </p>
+            <p class="text-gray-700 mb-4">
+               Un vide de 1 micron risquerait grandement de faire imploser l’erlenmeyer, et encore plus le bocal carré qui n’est pas en borosilicate. Un erlenmeyer de 500 ml (~10 cm) réduirait la distance nécessaire, permettant un bon résultat avec un vide plus élevé (~6-7 microns), mais ce niveau reste risqué pour l’implosion. Trois solutions, avec jauge à vide (raccords NPT/KF) et huile pour vide poussé :
+            </p>
+            <ul class="list-disc list-inside text-gray-700 mb-4">
+               <li><strong>Erlenmeyer 500 ml</strong> : Avec époxy spécial vide, visant ~3-4 microns.</li>
+               <li><strong>CRT récupéré</strong> : Verre conçu pour vide poussé, en retirant soigneusement le culot pour réutiliser l’enveloppe.</li>
+               <li><strong>Chambre sur mesure</strong> : Avec raccords KF et un viewport phosphorescent, sans besoin d’époxy spécial vide, mais coûteuse.</li>
+            </ul>
+            <details class="bg-gray-50 p-4 rounded-lg">
+               <summary>Analyse technique détaillée</summary>
+               <p class="text-gray-700 mb-4">
+                  Libre parcours moyen :
+               <div class="bg-gray-100 p-2 my-2">
+                  <span class="formula">λ = k × T / (√2 × π × d<sup>2</sup> × P)</span>
+               </div>
+               Pour <span class="formula">λ ≥ 2 m</span> (sur 31 cm) :
+               <div class="bg-gray-100 p-2 my-2">
+                  <span class="formula">P ≤ 5 × 10<sup>-3</sup> / 2 ≈ 3,3 microns</span>
+               </div>
+               Pour 10 cm, <span class="formula">λ ≥ 1 m</span> :
+               <div class="bg-gray-100 p-2 my-2">
+                  <span class="formula">P ≤ 5 × 10<sup>-3</sup> / 1 ≈ 6,7 microns</span>
+               </div>
+               À <span class="formula">P = 3 microns</span>, <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / (3 × 10<sup>-3</sup>) ≈ 1,67 m</span>, limitant les collisions, mais avec risque d’implosion.
+               <p class="equation-explanation">
+                  - <span class="formula">λ</span> : Libre parcours moyen (mètres).
+                  - <span class="formula">P</span> : Pression (Torr).
+                  - <span class="formula">k</span> : Constante de Boltzmann (1,38 × 10<sup>-23</sup> J/K).
+                  - <span class="formula">T</span> : Température (300 K).
+                  - <span class="formula">d</span> : Diamètre moléculaire (~3,7 × 10<sup>-10</sup> m).
+               </p>
+               </p>
+            </details>
+            <!-- CRT Dumont -->
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Tube Dumont Commercial : Référence Comparative</h3>
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">Configuration Expérimentale</h4>
+            <p class="text-gray-700 mb-4">
+               J’ai acquis deux <strong>tubes Dumont</strong> de type radar, conçus pour avoir un vide assez poussé, surpassant les ~500-1000 microns de mes prototypes, afin d’éviter tout plasma et permettre un faisceau d’électrons sans collisions. Ces tubes sont destinés à être utilisés dans des modules radar équipés de bobines magnétiques externes pour la focalisation et la déviation du faisceau. La structure interne, illustrée ci-dessous, comprend :
+            </p>
+            <ul class="list-disc list-inside text-gray-700 mb-4">
+               <li><strong>Ensemble filament/cathode</strong> : Le filament, alimenté à 6,3 V (600 mA), chauffe une cathode maintenue à 0 V, produisant des électrons par émission thermoïonique indirecte.</li>
+               <li><strong>Grille (Grid)</strong> : Positionnée près de la cathode, polarisée entre -30 V et -50 V pour moduler le flux d’électrons, contrôlant l’intensité du faisceau.</li>
+               <li><strong>Anode 1</strong> : Située après la grille, à 250 V, pour accélérer les électrons et les diriger vers l’écran.</li>
+               <li><strong>Revêtement conducteur (Carbone)</strong> : Anode finale à 5 kV, appliquée sur l’intérieur du tube, pour une accélération finale des électrons vers l’écran phosphorescent. Ce revêtement agit également comme collecteur d’électrons, capturant ceux ayant frappé l’écran ou divergents. Un mauvais réglage de la grille (par exemple, \( V_g = 0 \, \text{V} \)) augmenterait le courant d’électrons, risquant de surcharger le revêtement et de causer des dégâts thermiques ou électriques. Pour limiter ce courant, j'ai placé une résistance de 10 MΩ (10 W) en série avec l’alimentation HV, restreignant la dissipation à 6 W maximum.</li>
+            </ul>
+            <p class="text-gray-700 mb-4">
+               Comparée à mon filament unique (prototype 2), la solution Dumont est plus efficace. Mon filament, chauffé directement, émet des électrons de manière moins contrôlée et s’use rapidement (défaillance observée). Le Dumont utilise un filament séparé pour chauffer une cathode enduite d’oxyde (baryum/strontium), réduisant la température nécessaire (~800-1000 K contre ~1200-1500 K). Cette cathode indirecte est plus durable car l’enduit d’oxyde abaisse le travail de sortie, augmentant l’émission à moindre température, minimisant l’évaporation du matériau et prolongeant la durée de vie. La grille de Wehnelt offre un contrôle précis.
+            </p>
+            <p class="text-gray-700 mb-4">
+               Dans mon setup, sans bobines de focalisation ni de déviation, le faisceau n’est ni resserré ni dévié, ce qui explique le point lumineux net mais large (>1 cm).
+            </p>
+            <div class="flex flex-col items-center space-y-4 mt-4">
+               <img src="./assets/schema_dumont.jpg" alt="Schéma du tube Dumont" class="w-full max-w-3xl">
+               <img src="./assets/photo_dumont.jpg" alt="Photo du tube Dumont éteint" class="w-full max-w-3xl">
+               <video controls class="w-full max-w-3xl">
+                  <source src="./assets/video_dumont.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la balise vidéo.
+               </video>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-700 mb-2 mt-4">Analyse des Phénomènes Observés</h4>
+            <p class="text-gray-700 mb-4">
+               Aucun plasma n’a été observé, grâce au vide poussé. Le point lumineux net mais large (>1 cm) indique un faisceau cohérent, qui pourrait être affiné avec des bobines de focalisation.
+            </p>
+            <details class="bg-gray-50 p-4 rounded-lg">
+               <summary>Analyse quantique et électrodynamique détaillée</summary>
+               <p class="text-gray-700 mt-2">
+                  Examen approfondi des phénomènes physiques :
+               </p>
+               <ol class="list-decimal list-inside text-gray-700 mb-4">
+                  <li>
+                     <strong>Estimation du vide</strong> : Le vide poussé donne un libre parcours moyen suffisant pour éliminer les collisions :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / P</span> (en mètres, avec <span class="formula">P</span> en Torr)
+                     </div>
+                     Pour un vide typique de CRT radar (~10<sup>-6</sup> à 10<sup>-7</sup> Torr, soit ~0,001 à 0,0001 micron, <span class="formula">λ ≈ 5000 à 50000 m</span>, dépassant largement les dimensions du tube (~20-30 cm), permettant un faisceau cohérent sans aucune collision.
+                     <p class="equation-explanation">
+                        - <span class="formula">λ</span> : Libre parcours moyen (mètres).
+                        - <span class="formula">P</span> : Pression (Torr).
+                     </p>
+                  </li>
+                  <li>
+                     <strong>Émission thermoïonique</strong> : Le filament (6,3 V, 600 mA) chauffe la cathode. La température typique est ~1000 K pour une cathode enduite (oxyde de baryum/strontium). Suivant la loi de Richardson-Dushman :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">J = A × T<sup>2</sup> × exp(-φ / (k × T))</span>
+                     </div>
+                     Pour <span class="formula">T ≈ 1000 K</span>, <span class="formula">φ ≈ 1,5 eV</span> (oxyde), <span class="formula">k = 8,62 × 10<sup>-5</sup> eV/K</span>, <span class="formula">A ≈ 1,2 × 10<sup>6</sup> A/m<sup>2</sup>K<sup>2</sup></span> :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">J ≈ 1,2 × 10<sup>6</sup> × (1000)<sup>2</sup> × exp(-1,5 / (8,62 × 10<sup>-5</sup> × 1000)) ≈ 1,2 × 10<sup>9</sup> × exp(-17,4) ≈ 3,4 × 10<sup>1</sup> A/m<sup>2</sup></span>
+                     </div>
+                     Cela donne un courant suffisant pour un faisceau visible.
+                     <p class="equation-explanation">
+                        - <span class="formula">J</span> : Densité de courant (A/m²).
+                        - <span class="formula">T</span> : Température (K).
+                        - <span class="formula">φ</span> : Travail de sortie (eV).
+                        - <span class="formula">k</span> : Constante de Boltzmann (eV/K).
+                     </p>
+                  </li>
+                  <li>
+                     <strong>Modulation par la grille</strong> : La grille, à -30 à -50 V, module l’intensité du faisceau :
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">I ∝ (V<sub>g</sub> + μ × V<sub>a1</sub>)<sup>3/2</sup></span>
+                     </div>
+                     Avec <span class="formula">V<sub>g</sub> = -30 à -50 V</span>, <span class="formula">V<sub>a1</sub> = 250 V</span> (Anode 1), et <span class="formula">μ ≈ 0,1</span> (facteur de pénétration typique), le terme <span class="formula">V<sub>g</sub> + μ × V<sub>a1</sub> ≈ -30 + 0,1 × 250 = -5 V</span> (ou -25 V à -50 V), réduisant le courant pour contrôler la brillance.
+                     <p class="equation-explanation">
+                        - <span class="formula">I</span> : Courant (A).
+                        - <span class="formula">V<sub>g</sub>, V<sub>a1</sub></span> : Tensions de grille et Anode 1 (V).
+                        - <span class="formula">μ</span> : Facteur de pénétration.
+                     </p>
+                  </li>
+               </ol>
+            </details>
+         </section>
+         <!-- Bobines et Champs Magnétiques -->
+         <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Bobines et Champs Magnétiques</h2>
+            <p class="text-gray-700 mb-4">À venir</p>
+         </section>
+         <!-- Électronique -->
+         <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Électronique</h2>
+            <p class="text-gray-700 mb-4">À venir</p>
+         </section>
+         <!-- Footer -->
+         <footer class="text-center text-gray-600 mt-8">
+            <p>Projet DIY par Julien MAGNIN, 2025.</p>
+         </footer>
+      </div>
+   </body>
+</html>
