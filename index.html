@@ -76,6 +76,8 @@
             <h3 class="text-xl font-semibold text-gray-700 mb-2">Introduction et Objectifs</h3>
             <p class="text-gray-700 mb-4">
                L’objectif de cette partie du projet était de concevoir un tube cathodique (CRT) DIY fonctionnel en utilisant des moyens accessibles. J’ai choisi une pompe Vevor capable d’atteindre 25 microns avec un scellage optimal et une huile de haute qualité. Cependant, avec l’huile de base fournie et un scellage moyen de ma chambre à vide (sans époxy spécialisé), je visais une pression entre 500 et 1000 microns, ce qui me semblait suffisant pour un faisceau d’électrons stable. J’ai écarté la pompe Pfeiffer, limitée à 4000 microns, inadaptée pour un CRT.
+               <br></br>
+               Toutes les sections intitulées "Analyse détaillée" contenant des équations et des formules reposent souvent sur des variables très approximatives, définies par observation plutôt que par mesure, faute d’appareils adaptés. Ces formules et équations visent à mieux comprendre les phénomènes observés et, malgré l’approximation des variables, m’ont permis d’éclaircir certains aspects qui semblaient étranges ou incompréhensibles lors des expériences. Par ailleurs, les mesures de pression dans cet article sont exprimées en microns, mais pour faciliter la compréhension, voici une conversion : 1 micron ≈ 0,00133 mbar ≈ 0,001 torr.
             </p>
             <div class="flex flex-col items-center space-y-4 mb-4">
                <img src="./assets/photo_pompe_vide.jpg" alt="Photo des pompes à vide" class="w-full max-w-3xl">
@@ -116,55 +118,80 @@
                </p>
                <ol class="list-decimal list-inside text-gray-700 mb-4">
                   <li>
-                     <strong>Estimation de la pression</strong> : Le plasma s’étend sur ~26 cm, indiquant de multiples collisions ionisantes. Le libre parcours moyen est :
+                     <strong>Estimation de la pression</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / P</span> (en mètres, avec <span class="formula">P</span> en Torr)
                      </div>
-                     Pour un plasma continu, supposons <span class="formula">λ ≈ 1 mm = 0,001 m</span> (~260 collisions sur 26 cm) :
-                     <div class="bg-gray-100 p-2 my-2">
-                        <span class="formula">0,001 = 5 × 10<sup>-3</sup> / P</span> → <span class="formula">P ≈ 5 Torr ≈ 5000 microns</span>
-                     </div>
-                     Pour <span class="formula">λ ≈ 10 mm = 0,01 m</span> (~26 collisions) :
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Cette formule est dérivée de la théorie cinétique des gaz, où le libre parcours moyen (<span class="formula">λ</span>) représente la distance moyenne parcourue par une particule avant une collision. Elle est obtenue à partir de l’équation <span class="formula">λ = 1 / (√2 × π × d<sup>2</sup> × n)</span>, où <span class="formula">n</span> est la densité de particules, liée à la pression par la loi des gaz parfaits (<span class="formula">P = n × k × T</span>).
+                        <br><strong>Simplification</strong> : La formule utilisée est une approximation pour des gaz à basse pression (principalement azote à 300 K), où <span class="formula">5 × 10<sup>-3</sup></span> regroupe les constantes <span class="formula">k × T / (√2 × π × d<sup>2</sup>)</span>, avec <span class="formula">d ≈ 3,7 × 10<sup>-10</sup> m</span> (diamètre moléculaire de l’azote) et <span class="formula">T ≈ 300 K</span>. Elle est simplifiée pour des conditions standards et ne tient pas compte des variations de température ou de composition du gaz résiduel.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">λ</span> : Libre parcours moyen (mètres), estimé ici à ~10 mm (0,01 m) en supposant ~26 collisions sur 26 cm, basé sur l’extension du plasma observée (~26 cm).
+                           <li><span class="formula">P</span> : Pression (Torr), calculée comme inconnue. La pression est estimée à ~500 microns (0,5 Torr) d’après la couleur violette du plasma (typique de l’azote à cette pression) et son extension.
+                        </ul>
+                        <br><strong>Approximations</strong> : La pression (~500 microns) et le libre parcours moyen (~10 mm) sont très approximatifs, déduits par observation visuelle de la couleur et de l’extension du plasma (violet, ~26 cm). Sans jauge à vide, j’ai supposé que la couleur violette et la distance de 26 cm correspondaient à ~26 collisions, donnant <span class="formula">λ ≈ 26 cm / 26 ≈ 10 mm</span>. Cette estimation est cohérente avec des plasmas d’azote à ~0,5 Torr, mais une mesure précise requerrait une jauge à vide.
+                     </p>
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">0,01 = 5 × 10<sup>-3</sup> / P</span> → <span class="formula">P ≈ 0,5 Torr ≈ 500 microns</span>
                      </div>
-                     La couleur violette et l’extension du plasma sur 26 cm (avec ~26 collisions) suggèrent une pression de ~500 microns, cohérente avec un plasma d’azote à cette pression, où les collisions sont fréquentes mais le plasma reste stable et visible. <strong>Cette estimation est cependant approximative, basée sur des observations(couleur, extension). Une jauge à vide serait nécessaire pour confirmer la pression réelle.</strong>
-                     <p class="equation-explanation">
-                        - <span class="formula">λ</span> : Libre parcours moyen (mètres).
-                        - <span class="formula">P</span> : Pression (Torr).
-                     </p>
                   </li>
                   <li>
-                     <strong>Émission par effet de champ</strong> : Pour une pointe de rayon <span class="formula">r ≈ 10 μm</span> à -8000 V :
+                     <strong>Émission par effet de champ</strong> :
                      <div class="bg-gray-100 p-2 my-2">
-                        <span class="formula">E ≈ V / r = 8000 / (10 × 10<sup>-6</sup>) = 8 × 10<sup>8</sup> V/m</span>
+                        <span class="formula">E ≈ V / r</span>
                      </div>
-                     Cela permet l’émission par effet tunnel (Fowler-Nordheim) :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">J = (A × E<sup>2</sup> / φ) × exp(-B × φ<sup>3/2</sup> / E)</span>
                      </div>
-                     <p class="equation-explanation">
-                        - <span class="formula">J</span> : Densité de courant (A/m²).
-                        - <span class="formula">E</span> : Champ électrique (V/m).
-                        - <span class="formula">φ</span> : Travail de sortie (~4,3 eV, aluminium).
-                        - <span class="formula">A, B</span> : Constantes physiques.
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : La première formule estime le champ électrique à la pointe d’une cathode froide, dérivée de l’électrostatique pour une géométrie simplifiée (pointe sphérique). La deuxième est l’équation de Fowler-Nordheim, issue de la mécanique quantique, décrivant l’émission d’électrons par effet tunnel dans un fort champ électrique.
+                        <br><strong>Simplification</strong> : <span class="formula">E ≈ V / r</span> suppose une pointe sphérique et néglige les effets de géométrie complexe ou de charges environnantes. L’équation de Fowler-Nordheim est une forme standard, mais les constantes <span class="formula">A</span> et <span class="formula">B</span> sont souvent ajustées expérimentalement et simplifiées ici pour l’aluminium.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">E</span> : Champ électrique (V/m), calculé comme <span class="formula">E = 8000 / (10 × 10<sup>-6</sup>) = 8 × 10<sup>8</sup> V/m</span>.
+                           <li><span class="formula">V</span> : Tension appliquée (8000 V).
+                           <li><span class="formula">r</span> : Rayon de la pointe (~10 μm), estimé visuellement comme la taille de la tige taillée.
+                           <li><span class="formula">J</span> : Densité de courant (A/m²), résultat de l’émission.
+                           <li><span class="formula">φ</span> : Travail de sortie (~4,3 eV pour l’aluminium), valeur typique tirée de la littérature.
+                           <li><span class="formula">A, B</span> : Constantes de Fowler-Nordheim (<span class="formula">A ≈ 1,54 × 10<sup>-6</sup> A·eV/V<sup>2</sup></span>, <span class="formula">B ≈ 6,83 × 10<sup>9</sup> eV<sup>-3/2</sup>·V/m</span>), tirées de la théorie quantique.
+                        </ul>
+                        <br><strong>Approximations</strong> : Le rayon <span class="formula">r ≈ 10 μm</span> est très approximatif, estimé par observation visuelle de la pointe taillée, sans microscope pour mesurer précisément. La tension (8000 V) est mesurée, mais le travail de sortie (4,3 eV) est une valeur standard pour l’aluminium pur, et la surface réelle peut différer (oxydation, impuretés). Le calcul de <span class="formula">E</span> suppose une géométrie idéale, ce qui est simpliste.
                      </p>
-                     <strong>Remarque</strong> : Le rayon de la pointe (10 μm) est une approximation grossière pour illustrer le calcul. Une mesure précise serait nécessaire pour un résultat exact.
                   </li>
                   <li>
-                     <strong>Ionisation</strong> : Les électrons à 10 keV ionisent l’azote (énergie d’ionisation ~15,6 eV) :
+                     <strong>Ionisation</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">e<sup>-</sup> + N<sub>2</sub> → N<sub>2</sub><sup>+</sup> + 2e<sup>-</sup></span>
                      </div>
-                     À 500 microns (0,5 Torr), <span class="formula">λ ≈ 10 mm</span>, soit ~26 collisions sur 26 cm, produisant un plasma dominé par les électrons primaires, qui ionisent l’azote tout au long de leur trajet.
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Cette équation représente l’ionisation par impact électronique, un processus de physique des plasmas où un électron énergétique arrache un électron d’une molécule, créant un ion et un électron supplémentaire.
+                        <br><strong>Simplification</strong> : La réaction est simplifiée, ne montrant que l’ionisation de l’azote (principal gaz résiduel). Elle omet les processus secondaires (excitation, recombinaison) et suppose que l’azote domine le gaz résiduel.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">e<sup>-</sup></span> : Électron incident (~10 keV, énergie fournie par l’accélération).
+                           <li><span class="formula">N<sub>2</sub></span> : Molécule d’azote, principal gaz résiduel à ~500 microns.
+                           <li><span class="formula">N<sub>2</sub><sup>+</sup></span> : Ion azote formé.
+                           <li>Énergie d’ionisation : ~15,6 eV pour l’azote, largement dépassée par les 10 keV des électrons.
+                        </ul>
+                        <br><strong>Approximations</strong> : L’hypothèse que l’azote domine est basée sur l’observation de la couleur violette du plasma, typique de l’azote à basse pression. La composition exacte du gaz résiduel n’a pas été mesurée (pas de spectromètre de masse). L’énergie des électrons (~10 keV) est mesurée via la tension appliquée.
+                     </p>
                   </li>
                   <li>
-                     <strong>Émission spectrale</strong> : L’azote excité émet dans le violet (300-420 nm) :
+                     <strong>Émission spectrale</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">N<sub>2</sub>* → N<sub>2</sub> + hν</span>
                      </div>
-                     <p class="equation-explanation">
-                        - <span class="formula">hν</span> : Photon émis.
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Cette équation décrit la désexcitation d’une molécule d’azote excitée, émettant un photon (lumière violette), issue de la spectroscopie des plasmas.
+                        <br><strong>Simplification</strong> : Elle représente schématiquement l’émission dans la bande 300-420 nm (violet), omettant les transitions spécifiques (par exemple, système de bandes de la deuxième positive de l’azote).
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">N<sub>2</sub>*</span> : Molécule d’azote dans un état excité.
+                           <li><span class="formula">N<sub>2</sub></span> : Molécule revenue à l’état fondamental.
+                           <li><span class="formula">hν</span> : Photon émis (énergie correspondant à 300-420 nm, soit ~3-4 eV).
+                        </ul>
+                        <br><strong>Approximations</strong> : La gamme spectrale (300-420 nm) est estimée visuellement d’après la couleur violette, sans spectromètre pour confirmer les longueurs d’onde exactes. L’hypothèse d’azote excité est basée sur la littérature des plasmas à basse pression.
                      </p>
                   </li>
                </ol>
@@ -203,58 +230,62 @@
                </p>
                <ol class="list-decimal list-inside text-gray-700 mb-4">
                   <li>
-                     <strong>Estimation de la pression</strong> : Le vide, probablement >500 microns car la pompe a fonctionné brièvement, donne un libre parcours moyen :
+                     <strong>Estimation de la pression</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / P</span> (en mètres, avec <span class="formula">P</span> en Torr)
                      </div>
-                     Pour <span class="formula">P ≈ 0,5 Torr = 500 microns</span> :
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Comme pour le prototype 1, cette formule provient de la théorie cinétique des gaz, dérivée de <span class="formula">λ = 1 / (√2 × π × d<sup>2</sup> × n)</span>, avec <span class="formula">n</span> lié à <span class="formula">P</span> par la loi des gaz parfaits.
+                        <br><strong>Simplification</strong> : Identique au prototype 1, elle suppose un gaz principalement azoté à 300 K, regroupant les constantes dans <span class="formula">5 × 10<sup>-3</sup></span>.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">λ</span> : Libre parcours moyen (~10 mm, supposé identique au prototype 1, car le plasma était similaire).
+                           <li><span class="formula">P</span> : Pression (~500 microns = 0,5 Torr), hypothèse basée sur le prototype 1 et la durée de pompage plus courte.
+                        </ul>
+                        <br><strong>Approximations</strong> : La pression (~500 microns) est très approximative, déduite en supposant que le plasma similaire au prototype 1 implique une pression comparable. La durée de pompage plus courte suggère un vide potentiellement pire (>500 microns), mais sans jauge à vide, j’ai conservé <span class="formula">P ≈ 0,5 Torr</span>. Le libre parcours moyen (~10 mm) est une hypothèse, estimant ~22 collisions sur 22 cm d’après l’extension du plasma.
+                     </p>
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / 0,5 = 0,01 m = 10 mm</span>
                      </div>
-                     Sur 22 cm, cela donne ~22 collisions, expliquant le plasma mais permettant à certains électrons d’atteindre l’écran. <strong>Cette pression est une hypothèse basée sur le prototype 1 et la durée de pompage. Une jauge à vide serait nécessaire pour une mesure précise.</strong>
-                     <p class="equation-explanation">
-                        - <span class="formula">λ</span> : Libre parcours moyen (mètres).
-                        - <span class="formula">P</span> : Pression (Torr).
-                     </p>
                   </li>
                   <li>
-                     <strong>Émission thermoïonique</strong> : Le filament, à ~1200 K, suit la loi de Richardson-Dushman :
-                     <div class="bg-gray-100 p-2 my-2">
-                        <span class="formula">J = A × T<sup>2</sup> × exp(-φ / (k × T))</span>
-                     </div>
-                     Pour <span class="formula">T = 1200 K</span>, <span class="formula">φ ≈ 4,5 eV</span> (tungstène), <span class="formula">k = 8,62 × 10<sup>-5</sup> eV/K</span>, <span class="formula">A ≈ 1,2 × 10<sup>6</sup> A/m<sup>2</sup>K<sup>2</sup></span> :
-                     <div class="bg-gray-100 p-2 my-2">
-                        <span class="formula">J ≈ 1,2 × 10<sup>6</sup> × (1200)<sup>2</sup> × exp(-4,5 / (8,62 × 10<sup>-5</sup> × 1200)) ≈ 0,5 A/m<sup>2</sup></span>
-                     </div>
-                     <p class="equation-explanation">
-                        - <span class="formula">J</span> : Densité de courant (A/m²).
-                        - <span class="formula">T</span> : Température (K).
-                        - <span class="formula">φ</span> : Travail de sortie (eV).
-                        - <span class="formula">k</span> : Constante de Boltzmann (eV/K).
-                     </p>
-                     <strong>Remarque</strong> : La température (1200 K) et le travail de sortie (4,5 eV, tungstène) sont des approximations pour illustrer le calcul. Le filament réel peut avoir des propriétés différentes (par exemple, un enduit d’oxyde), et une mesure précise de la température serait nécessaire.
-                  </li>
+				   <strong>Émission thermoïonique</strong> :
+				   <div class="bg-gray-100 p-2 my-2">
+					  <span class="formula">J = A × T<sup>2</sup> × exp(-φ / (k × T))</span>
+				   </div>
+				   <p class="text-gray-700 mb-2">
+					  <strong>Origine</strong> : Équation de Richardson-Dushman, décrivant l'émission d'électrons par un métal chauffé.
+					  <br><strong>Simplification</strong> : La formule suppose une surface émettrice idéale. Elle omet les variations dues à l'enduit d'oxyde possible sur le filament.
+					  <br><strong>Explication des valeurs</strong> :
+					  <ul class="list-disc list-inside">
+						 <li><span class="formula">J</span> : Densité de courant (A/m²), calculée comme ~10,2 A/m².</li>
+						 <li><span class="formula">A</span> : Constante de Richardson (~1,2 × 10<sup>6</sup> A/m²K²), valeur universelle.</li>
+						 <li><span class="formula">T</span> : Température du filament (~2200 K).</li>
+						 <li><span class="formula">φ</span> : Travail de sortie (~4,5 eV, supposé pour le tungstène).</li>
+						 <li><span class="formula">k</span> : Constante de Boltzmann (8,62 × 10<sup>-5</sup> eV/K).</li>
+					  </ul>
+					  <br><strong>Approximations</strong> : La température (~2200 K) est très approximative, estimée d'après la lueur blanche du filament (typique de ~2000-2500 K), sans pyromètre. Le travail de sortie (~4,5 eV) suppose un filament de tungstène pur, mais un enduit d'oxyde (baryum/strontium) pourrait réduire <span class="formula">φ</span> à ~1,5-2 eV, augmentant <span class="formula">J</span>. La densité de courant (~10,2 A/m²) est une estimation théorique, non mesurée directement.
+				   </p>
+				   <div class="bg-gray-100 p-2 my-2">
+					  <span class="formula">J ≈ 1,2 × 10<sup>6</sup> × (2200)<sup>2</sup> × exp(-4,5 / (8,62 × 10<sup>-5</sup> × 2200)) ≈ 10,2 A/m<sup>2</sup></span>
+				   </div>
+				</li>
                   <li>
-                     <strong>Modulation par la grille</strong> : La grille module le courant :
-                     <div class="bg-gray-100 p-2 my-2">
-                        <span class="formula">I ∝ (V<sub>g</sub> + μ × V<sub>a</sub>)<sup>3/2</sup></span>
-                     </div>
-                     Avec <span class="formula">V<sub>g</sub></span> entre -50 et 0 V, <span class="formula">V<sub>a</sub> = 10 kV</span>, <span class="formula">μ ≈ 0,01-0,1</span>, cela focalise partiellement les électrons.
-                     <p class="equation-explanation">
-                        - <span class="formula">I</span> : Courant (A).
-                        - <span class="formula">V<sub>g</sub>, V<sub>a</sub></span> : Tensions de grille et anode (V).
-                        - <span class="formula">μ</span> : Facteur de pénétration.
-                     </p>
-                     <strong>Remarque</strong> : Le facteur de pénétration \( \mu \) est une estimation grossière pour montrer l’effet de la grille. Une analyse expérimentale serait nécessaire pour une valeur exacte.
-                  </li>
-                  <li>
-                     <strong>Ionisation et plasma</strong> : Les électrons à 10 keV ionisent l’azote :
+                     <strong>Ionisation et plasma</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">e<sup>-</sup> + N<sub>2</sub> → N<sub>2</sub><sup>+</sup> + 2e<sup>-</sup></span>
                      </div>
-                     À <span class="formula">λ ≈ 10 mm</span>, les collisions produisent un plasma, mais la distance réduite (~22 cm) permet à certains électrons d’atteindre l’écran.
-                  </li>
-                  <li><strong>Excitation du phosphore</strong> : Les électrons à ~10 keV excitent le phosphore (europium), émettant une faible luminescence.
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Identique au prototype 1, ionisation par impact électronique dans un plasma.
+                        <br><strong>Simplification</strong> : Comme précédemment, omet les processus secondaires et suppose l’azote comme gaz dominant.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">e<sup>-</sup></span> : Électron incident (~10 keV).
+                           <li><span class="formula">N<sub>2</sub></span> : Molécule d’azote.
+                           <li><span class="formula">N<sub>2</sub><sup>+</sup></span> : Ion azote.
+                        </ul>
+                        <br><strong>Approximations</strong> : Identique au prototype 1, l’azote est supposé dominant d’après la couleur violette du plasma, sans analyse chimique. L’énergie des électrons (~10 keV) est mesurée.
+                     </p>
                   </li>
                </ol>
             </details>
@@ -340,43 +371,59 @@
                </p>
                <ol class="list-decimal list-inside text-gray-700 mb-4">
                   <li>
-                     <strong>Estimation du vide</strong> : Le vide poussé donne un libre parcours moyen suffisant pour éliminer les collisions :
+                     <strong>Estimation du vide</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">λ ≈ 5 × 10<sup>-3</sup> / P</span> (en mètres, avec <span class="formula">P</span> en Torr)
                      </div>
-                     Pour un vide typique de CRT radar (~10<sup>-6</sup> à 10<sup>-7</sup> Torr, soit ~0,001 à 0,0001 micron, <span class="formula">λ ≈ 5000 à 50000 m</span>, dépassant largement les dimensions du tube (~20-30 cm), permettant un faisceau cohérent sans aucune collision.
-                     <p class="equation-explanation">
-                        - <span class="formula">λ</span> : Libre parcours moyen (mètres).
-                        - <span class="formula">P</span> : Pression (Torr).
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Théorie cinétique des gaz, comme pour les prototypes précédents.
+                        <br><strong>Simplification</strong> : Identique, supposant un gaz azoté à 300 K.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">λ</span> : Libre parcours moyen (~5000 à 50000 m, estimé pour un vide de CRT commercial).
+                           <li><span class="formula">P</span> : Pression (~10<sup>-6</sup> à 10<sup>-7</sup> Torr, soit ~0,001 à 0,0001 micron), typique des CRT radar.
+                        </ul>
+                        <br><strong>Approximations</strong> : La pression (~10<sup>-6</sup> à 10<sup>-7</sup> Torr) est une estimation basée sur les spécifications typiques des CRT radar, sans mesure directe.
                      </p>
                   </li>
                   <li>
-                     <strong>Émission thermoïonique</strong> : Le filament (6,3 V, 600 mA) chauffe la cathode. La température typique est ~1000 K pour une cathode enduite (oxyde de baryum/strontium). Suivant la loi de Richardson-Dushman :
+                     <strong>Émission thermoïonique</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">J = A × T<sup>2</sup> × exp(-φ / (k × T))</span>
                      </div>
-                     Pour <span class="formula">T ≈ 1000 K</span>, <span class="formula">φ ≈ 1,5 eV</span> (oxyde), <span class="formula">k = 8,62 × 10<sup>-5</sup> eV/K</span>, <span class="formula">A ≈ 1,2 × 10<sup>6</sup> A/m<sup>2</sup>K<sup>2</sup></span> :
-                     <div class="bg-gray-100 p-2 my-2">
-                        <span class="formula">J ≈ 1,2 × 10<sup>6</sup> × (1000)<sup>2</sup> × exp(-1,5 / (8,62 × 10<sup>-5</sup> × 1000)) ≈ 1,2 × 10<sup>9</sup> × exp(-17,4) ≈ 3,4 × 10<sup>1</sup> A/m<sup>2</sup></span>
-                     </div>
-                     Cela donne un courant suffisant pour un faisceau visible.
-                     <p class="equation-explanation">
-                        - <span class="formula">J</span> : Densité de courant (A/m²).
-                        - <span class="formula">T</span> : Température (K).
-                        - <span class="formula">φ</span> : Travail de sortie (eV).
-                        - <span class="formula">k</span> : Constante de Boltzmann (eV/K).
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Loi de Richardson-Dushman, comme pour le prototype 2.
+                        <br><strong>Simplification</strong> : Suppose une cathode enduite d’oxyde idéale, sans effet de champ ou dégradation.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">J</span> : Densité de courant (~34 A/m²).
+                           <li><span class="formula">A</span> : Constante de Richardson (~1,2 × 10<sup>6</sup> A/m²K²).
+                           <li><span class="formula">T</span> : Température (~1000 K, typique pour une cathode enduite).
+                           <li><span class="formula">φ</span> : Travail de sortie (~1,5 eV, pour oxyde de baryum/strontium).
+                           <li><span class="formula">k</span> : Constante de Boltzmann (8,62 × 10<sup>-5</sup> eV/K).
+                        </ul>
+                        <br><strong>Approximations</strong> : La température (~1000 K) et le travail de sortie (~1,5 eV) sont des estimations basées sur la littérature pour les cathodes enduites, sans mesure directe. La densité de courant (~34 A/m²) est théorique, non mesurée.
                      </p>
+                     <div class="bg-gray-100 p-2 my-2">
+                        <span class="formula">J ≈ 1,2 × 10<sup>6</sup> × (1000)<sup>2</sup> × exp(-1,5 / (8,62 × 10<sup>-5</sup> × 1000)) ≈ 34 A/m<sup>2</sup></span>
+                     </div>
                   </li>
                   <li>
-                     <strong>Modulation par la grille</strong> : La grille, à -30 à -50 V, module l’intensité du faisceau :
+                     <strong>Modulation par la grille</strong> :
                      <div class="bg-gray-100 p-2 my-2">
                         <span class="formula">I ∝ (V<sub>g</sub> + μ × V<sub>a1</sub>)<sup>3/2</sup></span>
                      </div>
-                     Avec <span class="formula">V<sub>g</sub> = -30 à -50 V</span>, <span class="formula">V<sub>a1</sub> = 250 V</span> (Anode 1), et <span class="formula">μ ≈ 0,1</span> (facteur de pénétration typique), le terme <span class="formula">V<sub>g</sub> + μ × V<sub>a1</sub> ≈ -30 + 0,1 × 250 = -5 V</span>, réduisant le courant pour contrôler la brillance.
-                     <p class="equation-explanation">
-                        - <span class="formula">I</span> : Courant (A).
-                        - <span class="formula">V<sub>g</sub>, V<sub>a1</sub></span> : Tensions de grille et Anode 1 (V).
-                        - <span class="formula">μ</span> : Facteur de pénétration.
+                     <p class="text-gray-700 mb-2">
+                        <strong>Origine</strong> : Dérivée de la loi de Child-Langmuir pour les tubes à vide, adaptée pour un triode, décrivant le courant modulé par la grille.
+                        <br><strong>Simplification</strong> : Forme simplifiée, supposant une géométrie idéale et un facteur de pénétration constant.
+                        <br><strong>Explication des valeurs</strong> :
+                        <ul class="list-disc list-inside">
+                           <li><span class="formula">I</span> : Courant du faisceau (proportionnel).
+                           <li><span class="formula">V<sub>g</sub></span> : Tension de grille (-30 à -50 V).
+                           <li><span class="formula">V<sub>a1</sub></span> : Tension de l’anode 1 (250 V).
+                           <li><span class="formula">μ</span> : Facteur de pénétration (~0,1, typique pour les CRT).
+                        </ul>
+                        <br><strong>Approximations</strong> : Le facteur <span class="formula">μ ≈ 0,1</span> est une estimation typique, sans mesure expérimentale de la géométrie du tube. Les tensions sont mesurées, mais le courant n’a pas été quantifié précisément.
                      </p>
                   </li>
                </ol>
